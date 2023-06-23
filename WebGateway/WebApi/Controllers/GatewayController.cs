@@ -6,6 +6,7 @@ using WebGateway.Services.BookingService;
 using WebGateway.Services.BookingService.Requests;
 using WebGateway.Services.CleaningService;
 using WebGateway.Services.CleaningService.Requests;
+using WebGateway.Services.CleaningService.Responses;
 using WebGateway.Services.HotelBaseService;
 using WebGateway.Services.HotelRoomService;
 using WebGateway.Services.HotelRoomService.Requests;
@@ -18,9 +19,9 @@ namespace WebGateway.WebApi.Controllers;
 public class GatewayController : ControllerBase
 {
     private string realHostUrlHotelBase = "http://un1ver5e.keenetic.link:5001/";
-    private string realHostUrlHotelRoom = "http://un1ver5e.keenetic.link:5000/"; //todo
-    private string realHostUrlBooking = "http://booking/"; //todo
-    private string realHostUrlCleaning = "http://cleaning/"; //todo
+    private string realHostUrlHotelRoom = "http://un1ver5e.keenetic.link:5000/";
+    private string realHostUrlBooking = "http://195.133.49.239:3500/index.html/";
+    private string realHostUrlCleaning = "https://cleaningservice-production.up.railway.app/";
 
     private StringValues HostUrlHotelBase => ChangedHost(KeyForHost.HotelBase, realHostUrlHotelBase);
     private StringValues HostUrlHotelRoom => ChangedHost(KeyForHost.HotelRoom, realHostUrlHotelRoom);
@@ -121,7 +122,7 @@ public class GatewayController : ControllerBase
     /// <param name="cleaningRequest">Координаты отеля и номер комнаты</param>
     /// <returns></returns>
     [HttpGet("rooms/current/clean")]
-    public async Task<IActionResult> GetInfoHotel([FromQuery] CleaningRequest cleaningRequest)
+    public async Task<CleaningResponse> GetInfoHotel([FromQuery] CleaningRequest cleaningRequest)
     {
         try
         {
