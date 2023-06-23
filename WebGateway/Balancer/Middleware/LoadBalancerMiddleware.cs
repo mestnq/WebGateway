@@ -13,12 +13,41 @@ public class LoadBalancerMiddleware
 
     public async Task Invoke(HttpContext httpContext)
     {
-        var server = loadBalancer.ChooseServer();
-        var keys = server.Keys.ToList();
-        foreach (var key in keys)
+        var server = new Dictionary<string, string>();
+        var keys = new List<string>();
+        bool serversnotfound = true;
+        while (serversnotfound)
         {
-            httpContext.Request.Headers.Add(key, server[key]);
+            server = loadBalancer.ChooseServer();
+            keys = server.Keys.ToList();
+            if (server == null)
+            {
+                break;
+            }
+            foreach (var key in keys)
+            {
+                using (var client = new HttpClient())
+                {
+                    try
+                    {
+                        HttpResponseMessage response = await client.GetAsync(server[key]);
+                        response.EnsureSuccessStatusCode();
+                        serversnotfound = false;
+                    }
+                    catch (Exception)
+                    {
+                        serversnotfound = true;
+                        Balancer.Balancer.RemoveServer(key, server[key]);
+                    }
+                }
+            }
+
+            foreach (var key in keys)
+            {
+                httpContext.Request.Headers.Add(key, server[key]);
+            }
         }
+
         await next(httpContext);
     }
 }

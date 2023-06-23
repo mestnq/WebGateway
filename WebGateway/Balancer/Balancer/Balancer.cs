@@ -1,22 +1,34 @@
 ﻿using System.Collections.Concurrent;
+using DotNetEnv;
 
 namespace Gateway.Balancer.Balancer;
 
 public class Balancer
 {
-    private static readonly Dictionary<string, ConcurrentDictionary<string, int>> apiServers = new Dictionary<string, ConcurrentDictionary<string, int>>();
-    private static readonly Random random = new Random();
+    private static Dictionary<string, ConcurrentDictionary<string, int>> apiServers = new Dictionary<string, ConcurrentDictionary<string, int>>();
+    private static Random random = new Random();
 
     public Balancer(string envFilePath)
     {
-        /*todo Считывать сервера из .env
-         Формат: 
-            APIName(ApiID)=url1
-            .
-            .
-            .
-            UrlN 
-         */
+        DotNetEnv.Env.Load(envFilePath);
+
+        apiServers = new Dictionary<string, ConcurrentDictionary<string, int>>();
+        random = new Random();
+
+        // получаем список API и серверов для каждого API
+        foreach (KeyValuePair<string, string> item in Env.Load(envFilePath))
+        {
+            if (!item.Key.StartsWith("API_"))
+                continue;
+            
+            string apiId = item.Key.Replace("API_", "").ToLower();
+
+            string[] servers = item.Value.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            foreach (string server in servers)
+            {
+                AddServer(apiId, server);
+            }
+        }
     }
 
     public Dictionary<string, string> ChooseServer()
