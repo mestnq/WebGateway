@@ -18,9 +18,9 @@ namespace WebGateway.WebApi.Controllers;
 public class GatewayController : ControllerBase
 {
     private string realHostUrlHotelBase = "http://un1ver5e.keenetic.link:5001/";
-    private string realHostUrlHotelRoom = "http://un1ver5e.keenetic.link:5000/"; //todo
+    private string realHostUrlHotelRoom = "http://un1ver5e.keenetic.link:5000/";
     private string realHostUrlBooking = "http://booking/"; //todo
-    private string realHostUrlCleaning = "http://cleaning/"; //todo
+    private string realHostUrlCleaning = "https://cleaningservice-production.up.railway.app/doc/";
 
     private StringValues HostUrlHotelBase => ChangedHost(KeyForHost.HotelBase, realHostUrlHotelBase);
     private StringValues HostUrlHotelRoom => ChangedHost(KeyForHost.HotelRoom, realHostUrlHotelRoom);
