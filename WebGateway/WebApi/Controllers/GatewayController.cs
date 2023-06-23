@@ -140,80 +140,80 @@ public class GatewayController : ControllerBase
 
     #region BookingService
 
-    /// <summary>
-    /// Просит историю брони
-    /// </summary>
-    /// <param name="getPassportRequest">Паспорт в виде строчки</param>
-    /// <returns></returns>
-    [HttpGet("booking/history")]
-    public async Task<IEnumerable<IActionResult>> GetHistoryBooking([FromQuery] GetPassportRequest getPassportRequest)
-    {
-        try
-        {
-            var bookingApi = RestService.For<IBookingApi>(HostUrlBooking!);
-            return await bookingApi.GetHistoryBooking(getPassportRequest.PassportNumber);
-        }
-        catch (ApiException exception) //todo: polly
-        {
-            Console.WriteLine(exception);
-            throw;
-        }
-    }
-
-    /// <summary>
-    /// Просит текущие бронирования
-    /// </summary>
-    /// <param name="getPassportRequest">Паспорт в виде строчки</param>
-    /// <returns></returns>
-    [HttpGet("booking/current")]
-    public async Task<IActionResult> GetCurrentBooking([FromQuery] GetPassportRequest getPassportRequest)
-    {
-        try
-        {
-            var bookingApi = RestService.For<IBookingApi>(HostUrlBooking!);
-            return await bookingApi.GetCurrentBooking(getPassportRequest.PassportNumber);
-        }
-        catch (ApiException exception) //todo: polly
-        {
-            Console.WriteLine(exception);
-            throw;
-        }
-    }
-
-    /// <summary>
-    /// Просит забронировать конкретный номер для проживания
-    /// </summary>
-    /// <param name="getPassportRequest">Паспорт в виде строчки</param>
-    /// <returns></returns>
-    [HttpGet("booking/add")]
-    public async Task<IActionResult> AddBooking([FromQuery] GetAllInfoAboutBooking getAllInfoAboutBooking)
-    {
-        try
-        {
-            var bookingApi = RestService.For<IBookingApi>(HostUrlBooking!);
-            return await bookingApi.AddBooking(getAllInfoAboutBooking);
-        }
-        catch (ApiException exception) //todo: polly
-        {
-            Console.WriteLine(exception);
-            throw;
-        }
-    }
-
-    [HttpGet("booking/cancel")]
-    public async Task<IActionResult> CancelBooking([FromQuery] GetPassportRequest getPassportRequest)
-    {
-        try
-        {
-            var bookingApi = RestService.For<IBookingApi>(HostUrlBooking!);
-            return await bookingApi.CancelBooking(getPassportRequest);
-        }
-        catch (ApiException exception) //todo: polly
-        {
-            Console.WriteLine(exception);
-            throw;
-        }
-    }
+    // /// <summary>
+    // /// Просит историю брони
+    // /// </summary>
+    // /// <param name="getPassportRequest">Паспорт в виде строчки</param>
+    // /// <returns></returns>
+    // [HttpGet("booking/history")]
+    // public async Task<IEnumerable<IActionResult>> GetHistoryBooking([FromQuery] GetPassportRequest getPassportRequest)
+    // {
+    //     try
+    //     {
+    //         var bookingApi = RestService.For<IBookingApi>(HostUrlBooking!);
+    //         return await bookingApi.GetHistoryBooking(getPassportRequest.PassportNumber);
+    //     }
+    //     catch (ApiException exception) //todo: polly
+    //     {
+    //         Console.WriteLine(exception);
+    //         throw;
+    //     }
+    // }
+    //
+    // /// <summary>
+    // /// Просит текущие бронирования
+    // /// </summary>
+    // /// <param name="getPassportRequest">Паспорт в виде строчки</param>
+    // /// <returns></returns>
+    // [HttpGet("booking/current")]
+    // public async Task<IActionResult> GetCurrentBooking([FromQuery] GetPassportRequest getPassportRequest)
+    // {
+    //     try
+    //     {
+    //         var bookingApi = RestService.For<IBookingApi>(HostUrlBooking!);
+    //         return await bookingApi.GetCurrentBooking(getPassportRequest.PassportNumber);
+    //     }
+    //     catch (ApiException exception) //todo: polly
+    //     {
+    //         Console.WriteLine(exception);
+    //         throw;
+    //     }
+    // }
+    //
+    // /// <summary>
+    // /// Просит забронировать конкретный номер для проживания
+    // /// </summary>
+    // /// <param name="getPassportRequest">Паспорт в виде строчки</param>
+    // /// <returns></returns>
+    // [HttpGet("booking/add")]
+    // public async Task<IActionResult> AddBooking([FromQuery] GetAllInfoAboutBooking getAllInfoAboutBooking)
+    // {
+    //     try
+    //     {
+    //         var bookingApi = RestService.For<IBookingApi>(HostUrlBooking!);
+    //         return await bookingApi.AddBooking(getAllInfoAboutBooking);
+    //     }
+    //     catch (ApiException exception) //todo: polly
+    //     {
+    //         Console.WriteLine(exception);
+    //         throw;
+    //     }
+    // }
+    //
+    // [HttpGet("booking/cancel")]
+    // public async Task<IActionResult> CancelBooking([FromQuery] GetPassportRequest getPassportRequest)
+    // {
+    //     try
+    //     {
+    //         var bookingApi = RestService.For<IBookingApi>(HostUrlBooking!);
+    //         return await bookingApi.CancelBooking(getPassportRequest);
+    //     }
+    //     catch (ApiException exception) //todo: polly
+    //     {
+    //         Console.WriteLine(exception);
+    //         throw;
+    //     }
+    // }
 
     #endregion
 }

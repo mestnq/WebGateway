@@ -7,6 +7,6 @@ namespace WebGateway.Services.CleaningService;
 
 public interface ICleaningApi
 {
-    [Get("/gatewayOrder")]
+    [Post("/gatewayOrder")]
     Task<CleaningResponse> CallCleaningToRoom(CleaningRequest cleaningRequest);
 }

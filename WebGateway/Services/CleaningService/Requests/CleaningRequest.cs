@@ -2,7 +2,7 @@ namespace WebGateway.Services.CleaningService.Requests;
 
 public record CleaningRequest
 {
-    public required float HotelLatitude { get; set; }
-    public required float HotelLongitude { get; set; }
-    public required int RoomNumber { get; set; }
+    public required float latitude { get; set; }
+    public required float longitude { get; set; }
+    public required int room_number { get; set; }
 }
